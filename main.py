@@ -4,6 +4,7 @@ from vertexai.language_models import TextGenerationModel
 from typing import Union
 
 from fastapi import FastAPI
+import os
 
 app = FastAPI()
 
@@ -20,6 +21,11 @@ def read_item(item_id: int, q: Union[str, None] = None):
 # get prediction from post data
 @app.post("/predict")
 def predict(data: dict):
+    # check security
+    token = data.get("token")
+    # get environment variable
+    if token != os.environ.get("TOKEN"):
+        return {"data": "token error"}
     data = get_prediction(data)
     return {"data": data}
 
