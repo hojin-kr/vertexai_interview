@@ -29,6 +29,7 @@ export const vertex = defineStore('vertex', () => {
   const description = ref('')
   const title = ref('')
   const result = ref([])
+  const loading = ref(0) // 0: not loading, 1: loading, 2: loaded
 
 
 
@@ -41,10 +42,15 @@ export const vertex = defineStore('vertex', () => {
     } else {
       result.value = result.value.concat(data.answer)
     }
+    setLoadding(2)
   }
 
   function resetResult () {
     result.value = []
+  }
+
+  function setLoadding (status: number) {
+    loading.value = status
   }
 
 
@@ -73,5 +79,5 @@ export const vertex = defineStore('vertex', () => {
     parsingResult(await response.json()) 
   }
   
-  return { result, predict, resetResult}
+  return { result, predict, resetResult, setLoadding, loading}
 })

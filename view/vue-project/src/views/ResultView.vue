@@ -7,6 +7,7 @@ const vertexUtils = vertex();
 
 // history.state foreach
 if (isSubmit()) {
+  vertexUtils.setLoadding(1)
   vertexUtils.predict()
 }
 
@@ -26,18 +27,37 @@ function isSubmit() {
   return false
 }
 
+// if vertexUtils.loadding is true, then show progress bar
+if (vertexUtils.loading) {
+  const progress = document.querySelector('.progress') as HTMLProgressElement
+  
+} else {
+  const progress = document.querySelector('.progress') as HTMLProgressElement
+  
+} 
+
 </script>
 
 <template>
   <div class="result">
     <!-- vertexUtils.result list -->
-    <li v-for="(answer, index) in vertexUtils.result">
+    <div class="progress" v-if="vertexUtils.loading == 1">
+      <!-- progress -->
+      <div>
+        <p>분석중입니다.</p>
+      </div>
+    </div>
+    <li v-else v-for="(answer, index) in vertexUtils.result">
       <div>
         <h3 class="question">Q{{ index + 1 }}. {{ answer.question }}</h3>
         <p class="reason">질문의 이유 : {{ answer.reason }}</p>
       </div>
     </li>
+
+
   </div>
+
+
 </template>
 
 <style>
@@ -71,6 +91,15 @@ function isSubmit() {
     width: 100%;
     
   }
+
+  /* progress styling, center modal */
+  .progress {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
 
   
 }
