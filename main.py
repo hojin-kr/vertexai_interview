@@ -35,45 +35,88 @@ def read_item(item_id: int, q: Union[str, None] = None):
 # get prediction from post data
 @app.post("/predict")
 def predict(data: dict):
+    print(data)
     # check security
     token = data.get("token")
     # get environment variable
     if token != os.environ.get("TOKEN"):
         return {"data": "token error"}
     data = get_prediction(data)
-    return {"data": data}
+    return data
 
 
 # func to get prediction from model
 def get_prediction(data: dict):
+    print("predict")
     vertexai.init(project="etcd-389303", location="us-central1")
     parameters = {
-        "temperature": 0.2,
+        "temperature": 0.6,
         "max_output_tokens": 1024,
         "top_p": 0.8,
         "top_k": 40
     }
     model = TextGenerationModel.from_pretrained("text-bison@001")
 
-    condition = data.get("data")
-    job = data.get("job")
+    description = data.get("description")
+    title = data.get("title")
     cnt_question_type_deep = data.get("cnt_question_type_deep")
     cnt_question_type_job = data.get("cnt_question_type_job")
-    
-    message = """```{}
-    ``` 
-    {} 면접을 해야하는데, 정보를 기반으로 질문 {}개하고 직군에 대해 깊게 고민해서 {}개
-    출력형태는 template에 맞춰서 json format
-    template: "질문":"","질문 이유":"""""
-    message = message.format(condition, job, cnt_question_type_deep, cnt_question_type_job)
-    # insert condition to string
     response = model.predict(
-        message
-        ,
-        **parameters
+    """ 
+    Extract question from the title & description below in a JSON format.
+    Please answer in Korean.
+
+    Title: """ + title + """
+    Text: """ + description + """
+    Count Question : """ + cnt_question_type_deep + """
+    JSON: {"answer": [{
+    \"question\":\"\",
+    \"reason\":\"\",
+    \"expectation\": \"\"
+    },{
+    \"question\":\"\",
+    \"reason\":\"\",
+    \"expectation\": \"\"
+    }]}
+
+    JSON:    
+    """,
+    **parameters
     )
 
-    # {"data": "```json\n[\n  {\n    \"질문\": \"최근에 개발한 프로젝트에서 가장 어려웠던 점은 무엇인가요?\",\n    \"질문 이유\": \"개발자가 직면하는 어려움을 파악하고, 지원자가 이를 극복할 수 있는 역량을 갖추고 있는지 확인하기 위함입니다.\"\n  },\n  {\n    \"질문\": \"프로젝트를 진행하면서 가장 중요하게 생각하는 것은 무엇인가요?\",\n    \"질문 이유\": \"지원자가 프로젝트를 진행할 때 어떤 부분을 중요하게 생각하는지를 파악하고, 지원자가 팀과 협업할 때 어떤 태도를 보일지 예측하기 위함입니다.\"\n  },\n  {\n    \"질문\": \"서버 개발자로서 가장 중요한 역량은 무엇이라고 생각하나요?\",\n    \"질문 이유\": \"서버 개발자로서 갖추어야 할 역량을 파악하고, 지원자가 해당 역량을 갖추고 있는지 확인하기 위함입니다.\"\n  }\n]\n```"}
-    # data parsing json
-    res = eval(response.text.split("```json")[1].split("```")[0])
-    return res
+    #   SAMPLE response
+    # {
+    # 	"answer": [
+    # 		{
+    # 			"question": "php 언어를 얼마나 잘 사용하고 있나요?",
+    # 			"reason": "php 언어를 주로 사용했다고 했으니 php 언어에 대한 질문을 하면 좋을 것 같습니다.",
+    # 			"expectation": "php 언어를 잘 사용하고 있다는 것을 증명할 수 있는 예시를 들어주세요."
+    # 		},
+    # 		{
+    # 			"question": "백오피스 및 게임 서버를 주로 했는데 어떤 경험이 있나요?",
+    # 			"reason": "백오피스 및 게임 서버를 주로 했다고 했으니 해당 분야에 대한 질문을 하면 좋을 것 같습니다.",
+    # 			"expectation": "백오피스 및 게임 서버 개발 경험에 대해 자세히 알려주세요."
+    # 		},
+    # 		{
+    # 			"question": "어떤 프로젝트를 진행했나요?",
+    # 			"reason": "프로젝트 경험을 물어보는 것은 지원자의 경험을 파악하기 좋은 방법입니다.",
+    # 			"expectation": "프로젝트 경험을 자세히 알려주세요."
+    # 		},
+    # 		{
+    # 			"question": "어떤 기술을 사용했나요?",
+    # 			"reason": "기술 스택을 물어보는 것은 지원자의 기술 수준을 파악하기 좋은 방법입니다.",
+    # 			"expectation": "기술 스택을 자세히 알려주세요."
+    # 		},
+    # 		{
+    # 			"question": "왜 이 회사에서 일하고 싶나요?",
+    # 			"reason": "지원 동기를 물어보는 것은 지원자가 회사에 관심이 있는지 파악하기 좋은 방법입니다.",
+    # 			"expectation": "이 회사에서 일하고 싶은 이유를 알려주세요."
+    # 		}
+    # 	]
+    # }
+    # del ``` from response.text
+    response.text = response.text.replace("```", "")
+
+    print(response.text)
+    print(eval(response.text))
+    return eval(response.text)
