@@ -28,11 +28,25 @@ const userStore = useUserStore()
 export const vertex = defineStore('vertex', () => {
   const description = ref('')
   const title = ref('')
-  const result = ref('')
+  const result = ref([])
+
+
 
   function parsingResult(data: any) {
-    result.value = data
+    console.log(data)
+    console.log("length :" + result.value.length)
+    // object result if data.answer.length > 0
+    if (result.value.length == 0) {
+      result.value = data.answer
+    } else {
+      result.value = result.value.concat(data.answer)
+    }
   }
+
+  function resetResult () {
+    result.value = []
+  }
+
 
   // requset to server
   async function predict() {
@@ -59,5 +73,5 @@ export const vertex = defineStore('vertex', () => {
     parsingResult(await response.json()) 
   }
   
-  return { result, predict }
+  return { result, predict, resetResult}
 })

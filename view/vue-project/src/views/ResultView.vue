@@ -5,19 +5,33 @@ import { vertex } from '@/stores/vertex';
 const userStore = useUserStore();
 const vertexUtils = vertex();
 
-// if result is null, then redirect to home
-vertexUtils.predict()
+// history.state foreach
+if (isSubmit()) {
+  vertexUtils.predict()
+}
 
 console.log(userStore.description)
 console.log(userStore.title)
 console.log(vertexUtils.result)
+
+// history.state check
+function isSubmit() {
+  for (const key in history.state) {
+    if (key === 'from') {
+        if (history.state[key] === 'submit') {
+            return true
+        }
+    }
+  }
+  return false
+}
 
 </script>
 
 <template>
   <div class="result">
     <!-- vertexUtils.result list -->
-    <li v-for="(answer, index) in vertexUtils.result.answer">
+    <li v-for="(answer, index) in vertexUtils.result">
       <div>
         <h3 class="question">Q{{ index + 1 }}. {{ answer.question }}</h3>
         <p class="reason">질문의 이유 : {{ answer.reason }}</p>
