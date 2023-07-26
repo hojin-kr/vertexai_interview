@@ -13,6 +13,7 @@ app = FastAPI()
 origins = [
     "http://localhost",
     "http://localhost:5173",
+    "https://vertexai-wlfx73ehlq-uc.a.run.app",
 ]
 
 app.add_middleware(
@@ -22,6 +23,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+from fastapi.staticfiles import StaticFiles
+
+# host static files in view/vue-project/dist
+app.mount("/", StaticFiles(directory="view/vue-project/dist", html=True))
 
 @app.get("/")
 def read_root():

@@ -62,7 +62,7 @@ export const vertex = defineStore('vertex', () => {
     console.log(title.value)
     console.log(description.value)
     // to https POST requset content type application/json
-    const response = await fetch('http://localhost:8000/predict', {
+    const response = await fetch('https://vertexai-wlfx73ehlq-uc.a.run.app/predict', {
       method: 'POST',
       body: JSON.stringify({
         title: title.value,
