@@ -29,8 +29,6 @@ export const vertex = defineStore('vertex', () => {
   const description = ref('')
   const title = ref('')
   const result = ref('')
-  description.value = userStore.description
-  title.value = userStore.title
 
   function parsingResult(data: any) {
     result.value = data
@@ -38,15 +36,19 @@ export const vertex = defineStore('vertex', () => {
 
   // requset to server
   async function predict() {
+    description.value = userStore.description
+    title.value = userStore.title
     console.log("predict")
+    console.log(title.value)
+    console.log(description.value)
     // to https POST requset content type application/json
     const response = await fetch('http://localhost:8000/predict', {
       method: 'POST',
       body: JSON.stringify({
         title: title.value,
         description:description.value,
-        cnt_question_type_deep:'2',
-        cnt_question_type_job:'1',
+        cnt_question_type_deep:'3',
+        cnt_question_type_job:'0',
         token:'onesoju2023$%^',
     }),
       headers: {

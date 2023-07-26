@@ -5,7 +5,7 @@ import HelloWorld from './components/HelloWorld.vue'
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="60" height="60" />
+    <!-- <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="60" height="60" /> -->
 
     <div class="wrapper">
       <HelloWorld msg="인터뷰어 AI" />

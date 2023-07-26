@@ -13,6 +13,9 @@ const userStore = useUserStore();
         <option value="프론트엔드 개발자">프론트엔드 개발자</option>
         <option value="데브옵스">데브옵스</option>
         <option value="데이터 엔지니어">데이터 엔지니어</option>
+        <option value="B2B 마케팅">B2B 마케팅</option>
+        <option value="B2C 마케팅">B2C 마케팅</option>
+        <option value="모바일 게임 QA">모바일 게임 QA</option>
       </select>
     </div>
   </div>
@@ -32,7 +35,7 @@ const userStore = useUserStore();
 
   .selectbox__select {
     width: 100%;
-    max-width: 400px;
+    max-width: 500px;
   }
 
   select {

@@ -50,7 +50,7 @@ def get_prediction(data: dict):
     print("predict")
     vertexai.init(project="etcd-389303", location="us-central1")
     parameters = {
-        "temperature": 0.6,
+        "temperature": 0.8,
         "max_output_tokens": 1024,
         "top_p": 0.8,
         "top_k": 40
@@ -64,19 +64,19 @@ def get_prediction(data: dict):
     response = model.predict(
     """ 
     Extract question from the title & description below in a JSON format.
+    Each question should be followed by a reason and an expectation.
+    Each reason Length should be more than 150 characters.
     Please answer in Korean.
 
     Title: """ + title + """
     Text: """ + description + """
-    Count Question : """ + cnt_question_type_deep + """
+    Question Count limit  : """ + cnt_question_type_deep + """
     JSON: {"answer": [{
     \"question\":\"\",
-    \"reason\":\"\",
-    \"expectation\": \"\"
+    \"reason\":\"\"
     },{
     \"question\":\"\",
-    \"reason\":\"\",
-    \"expectation\": \"\"
+    \"reason\":\"\"
     }]}
 
     JSON:    

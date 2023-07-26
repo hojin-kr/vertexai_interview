@@ -11,7 +11,6 @@ const userStore = useUserStore();
     <textarea
       id="text-area"
       class="text-area__input"
-      placeholder="경력 기술을 입력해주세요."
       rows="5"
       v-model="userStore.description"
     ></textarea>
@@ -33,7 +32,7 @@ const userStore = useUserStore();
 
   .text-area__input {
     width: 100%;
-    max-width: 400px;
+    max-width: 500px;
   }
 
   input {
@@ -54,7 +53,7 @@ const userStore = useUserStore();
   /* text area round */
   textarea {
     width: 100%;
-    height: 150px;
+    height: 200px;
     border: 1px solid #ccc;
     border-radius: 4px;
     padding: 0 0.5rem;
