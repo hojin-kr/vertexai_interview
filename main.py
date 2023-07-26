@@ -27,7 +27,10 @@ app.add_middleware(
 from fastapi.staticfiles import StaticFiles
 
 # host static files in view/vue-project/dist
-app.mount("/", StaticFiles(directory="view/vue-project/dist", html=True))
+app.mount("/home", StaticFiles(directory="view/vue-project/dist", html=True))
+app.mount("/about", StaticFiles(directory="view/vue-project/dist", html=True))
+app.mount("/result", StaticFiles(directory="view/vue-project/dist", html=True))
+app.mount("/assets", StaticFiles(directory="view/vue-project/dist/assets", html=False))
 
 @app.get("/")
 def read_root():
