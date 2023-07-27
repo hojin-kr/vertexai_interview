@@ -8,12 +8,12 @@ import ButtonSubmit from './ButtonSubmit.vue'
 <template>
   <WelcomeItem>
     <template #heading>직무 선택</template>
-    선택한 직무에 따라 질문이 달라집니다.
+    선택한 직무에 따라 맞춤 질문을 생성합니다.
   </WelcomeItem>
   <SelectBoxJob></SelectBoxJob>
   <WelcomeItem>
-    <template #heading>경력 기술</template>
-    경력 기술은 사용자의 경력을 기반으로 사용자의 기술을 분석합니다.
+    <template #heading>면접 정보 & 경력 & 자기소개</template>
+    면접 정보 혹은 경력이나 자기소개를 통해서 맞춤화된 질문을 생성합니다.
   </WelcomeItem>
   <TextAreaDescription></TextAreaDescription>
   

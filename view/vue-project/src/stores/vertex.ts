@@ -34,14 +34,14 @@ export const vertex = defineStore('vertex', () => {
 
 
   function parsingResult(data: any) {
-    console.log(data)
-    console.log("length :" + result.value.length)
-    // object result if data.answer.length > 0
-    if (result.value.length == 0) {
-      result.value = data.answer
-    } else {
-      result.value = result.value.concat(data.answer)
-    }
+    // foreach data.answer
+    data.answer.forEach((element: any) => {
+      if (element.reason == "" || element.question == "" ) {
+        return
+      }
+      result.value.push(element)
+    })
+    
     setLoadding(2)
   }
 
@@ -58,9 +58,6 @@ export const vertex = defineStore('vertex', () => {
   async function predict() {
     description.value = userStore.description
     title.value = userStore.title
-    console.log("predict")
-    console.log(title.value)
-    console.log(description.value)
     // to https POST requset content type application/json
     const response = await fetch('https://vertexai-wlfx73ehlq-uc.a.run.app/predict', {
       method: 'POST',

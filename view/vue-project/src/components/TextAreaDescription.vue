@@ -13,6 +13,7 @@ const userStore = useUserStore();
       class="text-area__input"
       rows="5"
       v-model="userStore.description"
+      maxlength="800"
     ></textarea>
   </div>
 </template>

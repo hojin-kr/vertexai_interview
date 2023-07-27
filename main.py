@@ -44,7 +44,7 @@ def read_item(item_id: int, q: Union[str, None] = None):
 # get prediction from post data
 @app.post("/predict")
 def predict(data: dict):
-    print(data)
+    print("predict")
     # check security
     token = data.get("token")
     # get environment variable
@@ -56,10 +56,9 @@ def predict(data: dict):
 
 # func to get prediction from model
 def get_prediction(data: dict):
-    print("predict")
     vertexai.init(project="etcd-389303", location="us-central1")
     parameters = {
-        "temperature": 0.8,
+        "temperature": 1,
         "max_output_tokens": 1024,
         "top_p": 0.8,
         "top_k": 40
@@ -73,7 +72,7 @@ def get_prediction(data: dict):
     response = model.predict(
     """ 
     Extract question from the title & description below in a JSON format.
-    Each question should be followed by a reason and an expectation.
+    Each question should be followed by a reason of question.
     Each reason Length should be more than 150 characters.
     Please answer in Korean.
 
@@ -126,6 +125,4 @@ def get_prediction(data: dict):
     # del ``` from response.text
     response.text = response.text.replace("```", "")
 
-    print(response.text)
-    print(eval(response.text))
     return eval(response.text)
