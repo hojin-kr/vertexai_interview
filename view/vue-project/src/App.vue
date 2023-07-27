@@ -10,7 +10,7 @@ import HelloWorld from './components/HelloWorld.vue'
       <HelloWorld msg="인터뷰어 AI" />
 
       <nav>
-        <RouterLink to="/home">면접 정보 입력</RouterLink>
+        <RouterLink to="/">면접 정보 입력</RouterLink>
         <!-- <RouterLink to="/about">이력서 기반</RouterLink> -->
         <RouterLink to="/result">생성된 질문 보기</RouterLink>
       </nav>

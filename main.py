@@ -7,6 +7,9 @@ from fastapi import FastAPI
 import os
 
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse, FileResponse
+from fastapi.staticfiles import StaticFiles
+
 
 app = FastAPI()
 
@@ -14,6 +17,7 @@ origins = [
     "http://localhost",
     "http://localhost:5173",
     "https://vertexai-wlfx73ehlq-uc.a.run.app",
+    "http://interview.tl-dr.in",
 ]
 
 app.add_middleware(
@@ -23,19 +27,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-from fastapi.staticfiles import StaticFiles
-
-# host static files in view/vue-project/dist
-app.mount("/home", StaticFiles(directory="view/vue-project/dist", html=True))
-app.mount("/about", StaticFiles(directory="view/vue-project/dist", html=True))
-app.mount("/result", StaticFiles(directory="view/vue-project/dist", html=True))
-app.mount("/assets", StaticFiles(directory="view/vue-project/dist/assets", html=False))
-
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
-
 
 @app.get("/items/{item_id}")
 def read_item(item_id: int, q: Union[str, None] = None):
@@ -52,6 +43,13 @@ def predict(data: dict):
         return {"data": "token error"}
     data = get_prediction(data)
     return data
+
+@app.get("/")
+async def index():
+    return FileResponse("view/vue-project/dist/index.html")
+
+# host static files in view/vue-project/dist
+app.mount("/", StaticFiles(directory="view/vue-project/dist", html=True), name="static")
 
 
 # func to get prediction from model
