@@ -82,9 +82,7 @@ if (vertexUtils.loading) {
 </template>
 
 <style>
-@media (min-width: 1024px) {
-
-  /* result styling */
+/* result styling */
   .result {
     margin-top: 3rem;
     margin-bottom: 3rem;
@@ -193,9 +191,6 @@ if (vertexUtils.loading) {
     margin-bottom: 1rem;
   }
 
-
-  
-}
 
 
 
