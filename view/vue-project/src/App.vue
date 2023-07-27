@@ -16,11 +16,17 @@ import HelloWorld from './components/HelloWorld.vue'
       </nav>
     </div>
   </header>
-
   <RouterView />
+  <footer>문의 : <a href="https://www.linkedin.com/in/호진-장-221aa3198/">Linkedin</a></footer>
+  <footer>Using Google Cloud Platform Vertex AI PaLM 2</footer>
 </template>
 
 <style scoped>
+footer {
+  text-align: center;
+  font-size: 12px;
+  margin-top: 2rem;
+}
 header {
   line-height: 1.5;
   max-height: 100vh;
