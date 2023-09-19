@@ -7,8 +7,8 @@ import ButtonSubmit from './ButtonSubmit.vue'
 
 <template>
   <WelcomeItem>
-    <template #heading>직무 선택</template>
-    선택한 직무에 따라 맞춤 질문을 생성합니다.
+    <template #heading>직무 입력</template>
+    입력한 직무에 따라 맞춤 질문을 생성합니다.
   </WelcomeItem>
   <SelectBoxJob></SelectBoxJob>
   <WelcomeItem>

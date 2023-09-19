@@ -14,6 +14,7 @@ const userStore = useUserStore();
       rows="5"
       v-model="userStore.description"
       maxlength="800"
+      placeholder="면접 정보 혹은 경력이나 자기소개를 입력하세요."
     ></textarea>
   </div>
 </template>
@@ -57,7 +58,7 @@ const userStore = useUserStore();
     height: 200px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    padding: 0 0.5rem;
+    padding: 0.5rem;
     font-size: 1rem;
     color: #333;
   }
