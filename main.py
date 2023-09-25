@@ -20,6 +20,7 @@ origins = [
     "http://interview.tl-dr.in",
     "http://tl-dr.in",
     "http://i.tl-dr.in",
+    "https://i.tl-dr.in",
 ]
 
 app.add_middleware(
