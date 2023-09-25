@@ -19,6 +19,7 @@ origins = [
     "https://vertexai-wlfx73ehlq-uc.a.run.app",
     "http://interview.tl-dr.in",
     "http://tl-dr.in",
+    "http://i.tl-dr.in",
 ]
 
 app.add_middleware(
