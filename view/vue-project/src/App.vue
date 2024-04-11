@@ -17,7 +17,7 @@ import HelloWorld from './components/HelloWorld.vue'
     </div>
   </header>
   <RouterView />
-  <footer>문의 : <a href="https://www.linkedin.com/in/호진-장-221aa3198/">Linkedin</a></footer>
+  <footer>문의 : <a href="https://www.linkedin.com/in/hojin-jang-221aa3198/">Linkedin</a></footer>
   <footer>Using Google Cloud Platform Vertex AI PaLM 2</footer>
 </template>
 
